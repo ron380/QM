@@ -1,0 +1,130 @@
+
+
+For a cumulative payments both paid and incurred
+
+We use log-normal model,  That is, conditional on $\boldsymbol{\Theta}$, we have for $j \geq 0$
+$$
+\left.\log \frac{P_{i, j}}{P_{i, j-1}}\right|_{\left\{\mathscr{B}_{j-1}^P, \boldsymbol{\Theta}\right\}} \sim \mathcal{N}\left(\Phi_j, \sigma_j^2\right),
+$$
+where we have set $P_{i,-1}=1$. Hence the expectation of log-normal gives
+$$
+E\left[P_{i, j} \mid \mathscr{B}_{j-1}^P, \boldsymbol{\Theta}\right]=P_{i, j-1} \exp \left\{\Phi_j+\sigma_j^2 / 2\right\} .
+$$
+which then implies for the expected ultimate loss, given $\left\{\mathscr{B}_j^P, \boldsymbol{\Theta}\right\}$,
+$$
+E\left[P_{i, J} \mid \mathscr{B}_j^P, \boldsymbol{\Theta}\right]=P_{i, j} \exp \left\{\sum_{l=j+1}^J \Phi_l+\sigma_l^2 / 2\right\} .
+$$
+
+
+Now, we consider a (Log-Normal PIC Model
+- Conditionally, given $\boldsymbol{\Theta}=\left(\Phi_0, \ldots, \Phi_J, \Psi_0, \ldots, \Psi_{J-1}, \sigma_0, \ldots\right.$, $\left.\sigma_J, \tau_0, \ldots, \tau_{J-1}\right)$, we have:
+- the random vector $\left(\xi_{0,0}, \ldots, \xi_{J, J}, \zeta_{0,0}, \ldots, \zeta_{J, J-1}\right)$ has a multivariate Gaussian distribution with uncorrelated components given by
+$\xi_{i, j} \sim \mathcal{N}\left(\Phi_j, \sigma_j^2\right) \quad$ for $i \in\{0, \ldots, J\}$ and $j \in\{0, \ldots, J\}$,
+$\zeta_{k, l} \sim \mathcal{N}\left(\Psi_l, \tau_l^2\right) \quad$ for $k \in\{0, \ldots, J\}$ and $l \in\{0, \ldots, J-1\} ;$
+
+- cumulative payments $P_{i, j}$ are given by the recursion $P_{i, j}=P_{i, j-1} \exp \left\{\xi_{i, j}\right\}, \quad$ with initial value $P_{i, 0}=\exp \left\{\xi_{i, 0}\right\}$;
+
+- comumulative incurred losses $I_{i, j}$ are given by the (backwards) recursion $I_{i, j-1}=I_{i, j} \exp \left\{-\zeta_{i, j-1}\right\}$, with initial value $I_{i, J}=P_{i, H}$.
+
+**Asumption** The components of $\boldsymbol{\Theta}$ are independent and $\sigma_j, \tau_j>0$ for all $j$.
+
+
+- the random vector $\left(\xi_{0,0}, \ldots, \xi_{J, J}, \zeta_{0,0}, \ldots, \zeta_{J, J-1}\right)$ has a multivariate Gaussian distribution with uncorrelated components given by
+$$
+\begin{array}{ll}
+\xi_{i, j} \sim \mathcal{N}\left(\Phi_j, \sigma_j^2\right) & \text { for } i \in\{0, \ldots, J\} \text { and } j \in\{0, \ldots, J\} \\
+\zeta_{k, l} \sim \mathcal{N}\left(\Psi_l, \tau_l^2\right) & \text { for } k \in\{0, \ldots, J\} \text { and } l \in\{0, \ldots, J-1\}
+\end{array}
+$$
+
+- The assumption $I_{i, J}=P_{i, J}$ means that all claims are settled after $J$ development years and there is no tail development factor. If there is a claims development beyond development year $J$, then one can extend the PIC model for the estimation of a tail development factor. 
+
+
+
+Proposition. Under Model Assumption 1.1 we obtain for $0 \leq$
+$$
+\begin{aligned}
+& j<j+l \leq J \\
+& \left.\log I_{i, j+l}\right|_{\left\{\mathscr{B}_j^I, \Theta\right\}} \\
+& \quad \sim \mathcal{N}\left(\mu_{j+l}+\frac{v_{j+l}^2}{v_j^2}\left(\log I_{i, j}-\mu_j\right), v_{j+l}^2\left(1-v_{j+l}^2 / v_j^2\right)\right),
+\end{aligned}
+$$
+where the parameters are given by (an empty sum is set equal to 0)
+$$
+\mu_j=\sum_{m=0}^J \Phi_m-\sum_{n=j}^{J-1} \Psi_n \quad \text { and } \quad v_j^2=\sum_{m=0}^J \sigma_m^2+\sum_{n=j}^{J-1} \tau_n^2
+$$
+**Proof.**
+Note that we only consider conditional distributions, given the parameter $\boldsymbol{\Theta}$, and for this conditional distributions claims in different accident years are independent. 
+
+Therefore we can restrict ourselves to one fixed accident year $i$. The vector
+$$
+\left.\left(\log I_{i, j+l}, \log I_{i, j}, \log I_{i, j-1}, \ldots, \log I_{i, 0}\right)^{\prime}\right|_{\{\Theta\}}
+$$
+has a multivariate Gaussian distribution with mean $\left(\mu_{j+l}, \mu_j, \mu_{j-1}\right.$, $\left.\ldots, \mu_0\right)$ and covariance matrix $\Sigma$ with elements given by: for $n \geq m \in\{j+l, j, j-1, \ldots, 0\}$
+$$
+\operatorname{Cov}\left(\log I_{i, n}, \log I_{i, m} \mid \boldsymbol{\Theta}\right)=v_n^2
+$$
+apply Lemma (Conditional Gaussian) to the random variable $\left.\log I_{i, j+l}\right|_{\left\{\mathscr{B}_j^I, \Theta\right\}}$ with parameters $m_1=\mu_{j+l}, m^{(2)}=\left(\mu_j, \ldots, \mu_0\right)$, $\Sigma_{1,1}=v_{j+l}^2, \Sigma_{2,2}$ is the covariance matrix of $X^{(2)}=\left(\log I_{i, j}\right.$, $\left.\ldots, \log I_{i, 0}\right)\left.^{\prime}\right|_{\{\Theta\}}$ and
+$$
+\Sigma_{1,2}=\left(v_{j+l}^2, \ldots, v_{j+l}^2\right) \in \mathbb{R}^{j+1} \text {. }
+$$
+We obtain from Lemma 2.1 a Gaussian distribution and there remains the calculation of the explicit parameters of the Gaussian distribution. Note that the covariance matrix $\Sigma_{2,2}$ has the following form
+$$
+\Sigma_{2,2}=\left(v_{(j+1-n) \vee(j+1-m)}^2\right)_{1 \leq n, m \leq j+1},
+$$
+where $(j+1-n) \vee(j+1-m)=\max \{j+1-n, j+1-m\}$. Henceforth, $\Sigma_{2,2}$ has a fairly simple structure which gives a nice form for its inverse
+$$
+\Sigma_{2,2}=\left(v_{(j+1-n) \vee(j+1-m)}^2\right)_{1 \leq n, m \leq j+1},
+$$
+where $(j+1-n) \vee(j+1-m)=\max \{j+1-n, j+1-m\}$. 
+
+Henceforth, $\Sigma_{2,2}$ has a fairly simple structure which gives a nice form for its inverse
+$$
+\Sigma_{2,2}^{-1}=\left(b_{n, m}\right)_{1 \leq n, m \leq j+1},
+$$
+with diagonal elements
+$$
+\begin{aligned}
+& b_{1,1}=\frac{v_{j-1}^2}{v_j^2\left(v_{j-1}^2-v_j^2\right)}, \\
+& b_{n, n}=\frac{v_{j-n}^2-v_{j+2-n}^2}{\left(v_{j+1-n}^2-v_{j+2-n}^2\right)\left(v_{j-n}^2-v_{j+1-n}^2\right)} \quad \text { for } n \in\{2, \ldots, j\}, \\
+& b_{j+1, j+1}=\frac{1}{v_0^2-v_1^2},
+\end{aligned}
+$$
+
+
+
+
+Henceforth, we can apply Lemma 2.1 to the random variable $\left.\log I_{i, j+l}\right|_{\left\{\mathscr{B}_j^I, \boldsymbol{\Theta}\right\}}$ with parameters $m_1=\mu_{j+l}, m^{(2)}=\left(\mu_j, \ldots, \mu_0\right)$, $\Sigma_{1,1}=v_{j+l}^2, \Sigma_{2,2}$ is the covariance matrix of $X^{(2)}=\left(\log I_{i, j}\right.$, $\left.\ldots, \log I_{i, 0}\right)\left.^{\prime}\right|_{\{\Theta\}}$ and
+$$
+\Sigma_{1,2}=\left(v_{j+l}^2, \ldots, v_{j+l}^2\right) \in \mathbb{R}^{j+1} \text {. }
+$$
+We obtain from Lemma 2.1 a Gaussian distribution and there remains the calculation of the explicit parameters of the Gaussian distribution. Note that the covariance matrix $\Sigma_{2,2}$ has the following form
+
+
+$$
+\Sigma_{2,2}=\left(v_{(j+1-n) \vee(j+1-m)}^2\right)_{1 \leq n, m \leq j+1},
+$$
+where $(j+1-n) \vee(j+1-m)=\max \{j+1-n, j+1-m\}$. Henceforth, $\Sigma_{2,2}$ has a fairly simple structure which gives a nice form for its inverse
+$$
+\Sigma_{2,2}^{-1}=\left(b_{n, m}\right)_{1 \leq n, m \leq j+1},
+$$
+with diagonal elements
+$$
+\begin{aligned}
+& b_{1,1}=\frac{v_{j-1}^2}{v_j^2\left(v_{j-1}^2-v_j^2\right)}, \\
+& b_{n, n}=\frac{v_{j-n}^2-v_{j+2-n}^2}{\left(v_{j+1-n}^2-v_{j+2-n}^2\right)\left(v_{j-n}^2-v_{j+1-n}^2\right)} \quad \text { for } n \in\{2, \ldots, j\}, \\
+& b_{j+1, j+1}=\frac{1}{v_0^2-v_1^2},
+\end{aligned}
+$$
+
+**PIC Ultimate Loss Prediction**. Under Model Assumption 1.1 we obtain for the expected ultimate loss $I_{i, J}=P_{i, J}$, given $\left\{\mathscr{B}_j, \boldsymbol{\Theta}\right\}$,
+$$
+\begin{aligned}
+& E\left[P_{i, J} \mid \mathscr{B}_j, \boldsymbol{\Theta}\right]=P_{i, j} \exp \left\{\sum_{l=j+1}^J \Phi_l+\frac{\sigma_l^2}{2}\right\} \\
+& \times \exp \left\{\beta_j\left(\log \frac{I_{i, j}}{P_{i, j}}-\left(\mu_j-\eta_j\right)-\sum_{l=j+1}^J \frac{\sigma_l^2}{2}\right)\right\} \\
+& =I_{i, j} \exp \left\{\sum_{l=j}^{J-1} \Psi_l\right\} \\
+& \times \exp \left\{\left(1-\beta_j\right)\left(\log \frac{P_{i, j}}{I_{i, j}}-\left(\eta_j-\mu_j\right)+\sum_{l=j+1}^J \frac{\sigma_l^2}{2}\right)\right\} \\
+& =\exp \left\{\left(1-\beta_j\right)\left(\log P_{i, j}+\sum_{l=j+1}^J \Phi_l\right)+\beta_j\left(\log I_{i, j}+\sum_{l=j}^{J-1} \Psi_l\right)\right\} \\
+& \times \exp \left\{\left(1-\beta_j\right)\left(v_J^2-w_j^2\right) / 2\right\}
+\end{aligned}
+$$
